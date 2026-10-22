@@ -4,6 +4,12 @@ import dotenvSafe from "dotenv-safe";
 import testConnect from "./db/testConnect.js";
 import apiRoutes from "./routes/apiRoutes.js";
 
+dotenvSafe.config({
+  path: "./.env",
+  example: "./.env.example",
+  allowEmptyValues: true,
+});
+
 class AppController {
   //Define uma classe para organizar a lógica da aplicação
   constructor() {

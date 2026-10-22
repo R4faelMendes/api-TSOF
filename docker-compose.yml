@@ -1,16 +1,20 @@
-version: "3.8"
-
 services:
   app:
     build: .
     command: /bin/sh -c "npm install && npm start"
     ports:
       - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: senai@604
+      DB_NAME: vio
+      DB_PORT: 3306
     volumes:
       - .:/usr/app
     depends_on:
       db:
-        condition: service_healthy  # Aguarda o healthcheck passar
+        condition: service_healthy
 
   db:
     image: mysql:8.0
@@ -22,7 +26,7 @@ services:
       MYSQL_COLLATION: utf8mb4_unicode_ci
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./mysql-init:/docker-entrypoint-initdb.d
